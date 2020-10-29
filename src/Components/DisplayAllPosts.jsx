@@ -30,7 +30,6 @@ const DisplayAllPosts = () => {
         event.preventDefault();
         const id = Date.now();
         setAllPost([...allPost, { title, content, id }]);
-        // console.log(allPosts);
         getTitle.current.value = "";
         getContent.current.value = "";
         toggleCreateNewPost()

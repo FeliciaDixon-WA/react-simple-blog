@@ -1,6 +1,7 @@
 import React, {useState, useRef } from 'react';
 import useDebug from '../hooks/useDebug';
 import CreateNewPost from './CreateNewPost';
+import Post from './Post';
 
 const DisplayAllPosts = () => {
     const [title, setTitle] = useState("");
@@ -28,8 +29,7 @@ const DisplayAllPosts = () => {
     }
       const savePost = event => {
         event.preventDefault();
-        const id = Date.now();
-        setAllPost([...allPost, { title, content, id }]);
+        setAllPost([...allPost, { title, content}]);
         getTitle.current.value = "";
         getContent.current.value = "";
         toggleCreateNewPost()
@@ -50,10 +50,27 @@ const DisplayAllPosts = () => {
     return (
     <React.Fragment>
         <h2>All Posts</h2>
+        {!allPost.length ? (
+          <div> 
+            <h3>There is nothing to see here!</h3>
+          </div>
+        ) : (
+          allPost.map(eachPost => {
+            return (
+              <Post
+                id={eachPost.id}
+                key={eachPost.id}
+                title={eachPost.title}
+                content={eachPost.content}
+                />
+            );
+          })
+        )}
+
         <br/>
         <br/>
         <button onClick={toggleCreateNewPost}>Create New</button>
     </React.Fragment>
-)
+  )
 };
 export default DisplayAllPosts

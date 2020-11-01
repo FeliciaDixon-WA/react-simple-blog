@@ -117,6 +117,7 @@ const DisplayAllPosts = () => {
                 title={eachPost.title}
                 content={eachPost.content}
                 editPost={editPost}
+                deletePost={deletePost}
                 />
             );
           })

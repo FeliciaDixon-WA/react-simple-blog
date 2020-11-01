@@ -2,12 +2,15 @@ import React, {useState, useRef } from 'react';
 import useDebug from '../hooks/useDebug';
 import CreateNewPost from './CreateNewPost';
 import Post from './Post';
+import ModifyPost from './ModifyPost';
 
 const DisplayAllPosts = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [allPost, setAllPost] = useState([]);
     const [isCreateNewPost, setIsCreateNewPost] = useState(false);
+    const [isModifyPost, setIsModifyPost] = useState(false);
+    const [editPostId, setEditPostId] = useState("");
     
     const getTitle = useRef();
     const getContent = useRef();
@@ -15,6 +18,7 @@ const DisplayAllPosts = () => {
    useDebug(title);
    useDebug(content);
    useDebug(allPost);
+   useDebug(editPostId);
 
     const savePostTitleToState = event => {
          setTitle(event.target.value);
@@ -27,9 +31,45 @@ const DisplayAllPosts = () => {
     const toggleCreateNewPost = () => {
         setIsCreateNewPost(!isCreateNewPost)
     }
+
+    const toggleModifyPostComponent = () => {
+      setIsModifyPost(!isModifyPost)
+    }
+
+    const editPost = id => {
+      setEditPostId(id);
+      toggleModifyPostComponent();
+    };
+
+    const deletePost = id => {
+      const modifiedPost = allPost.filter(eachPost => {
+        return eachPost.id!== id;
+      });
+      setAllPost(modifiedPost);
+    };
+
+    const updatePost = (event) => {
+      event.preventDefault();
+      const updatePost = allPost.map(eachPost => {
+        if(eachPost.id === editPostId) {
+          return {
+            ...eachPost,
+            title: title || eachPost.title,
+            content: content || eachPost.content
+          };
+        }
+        return eachPost;
+      });
+      setAllPost(updatePost);
+      toggleModifyPostComponent();
+    }
+
       const savePost = event => {
         event.preventDefault();
-        setAllPost([...allPost, { title, content}]);
+        const id = Date.now();
+        setAllPost([...allPost, { title, content, id}]); 
+        setTitle("");
+        setContent("");
         getTitle.current.value = "";
         getContent.current.value = "";
         toggleCreateNewPost()
@@ -47,6 +87,20 @@ const DisplayAllPosts = () => {
         </React.Fragment>
       );
     }
+    else if (isModifyPost){
+      const post = allPost.find(post => {
+        return post.id === editPostId;
+      });
+      return (
+        <ModifyPost 
+          title={post.title}
+          content={post.content}
+          updatePost={updatePost}
+          savePostTitleToState={savePostTitleToState}
+          savePostContentToState={savePostContentToState}
+        />
+      );
+    }
     return (
     <React.Fragment>
         <h2>All Posts</h2>
@@ -62,6 +116,7 @@ const DisplayAllPosts = () => {
                 key={eachPost.id}
                 title={eachPost.title}
                 content={eachPost.content}
+                editPost={editPost}
                 />
             );
           })

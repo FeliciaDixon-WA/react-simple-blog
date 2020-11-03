@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import React from "react";
 
 const CreateNewPost = props => {
@@ -25,7 +26,7 @@ const CreateNewPost = props => {
         ></textarea>
         <br />
         <br />
-        <button>Save Post</button>
+        <Button color="primary" variant="contained" onClick={props.savePost}>Save Post</Button>
       </form>
     </React.Fragment>
   );

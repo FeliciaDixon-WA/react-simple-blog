@@ -3,6 +3,7 @@ import useDebug from '../hooks/useDebug';
 import CreateNewPost from './CreateNewPost';
 import Post from './Post';
 import ModifyPost from './ModifyPost';
+import { Button } from '@material-ui/core';
 
 const DisplayAllPosts = () => {
     const [title, setTitle] = useState("");
@@ -125,7 +126,7 @@ const DisplayAllPosts = () => {
 
         <br/>
         <br/>
-        <button onClick={toggleCreateNewPost}>Create New</button>
+        <Button color="primary" variant="contained" onClick={toggleCreateNewPost}>Create New</Button>
     </React.Fragment>
   )
 };

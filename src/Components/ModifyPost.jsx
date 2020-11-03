@@ -4,7 +4,7 @@ import React from "react";
 const useStyle = makeStyles((theme) => {
   return {
     root: {
-      backgroundColor: "red",
+      backgroundColor: "gray",
       padding: theme.spacing(2)
     }
   }
@@ -33,7 +33,7 @@ const ModifyPost = props => {
         ></textarea>
         <br />
         <br />
-        <Button color="primary" variant="outlined" onClick ={props.updatePost}>Update Post</Button>
+        <Button color="primary" variant="contained" onClick ={props.updatePost}>Update Post</Button>
       </form>
     </React.Fragment>
   );

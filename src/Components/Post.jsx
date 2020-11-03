@@ -6,8 +6,8 @@ const Post = ({ title, content, editPost, id, deletePost }) => {
     <section>
         <h3>{title}</h3>
         <p>{content}</p>
-        <button onClick = { () => editPost(id)}>Edit</button>
-        <button onClick ={ () => deletePost(id)}>Delete</button>
+        <button color="primary" variant="contained" onClick = { () => editPost(id)}>Edit</button>
+        <button color="primary" variant="contained" onClick ={ () => deletePost(id)}>Delete</button>
     </section>
     </React.Fragment>
     );

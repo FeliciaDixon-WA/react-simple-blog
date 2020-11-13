@@ -4,6 +4,19 @@ import CreateNewPost from './CreateNewPost';
 import Post from './Post';
 import ModifyPost from './ModifyPost';
 import { Button } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     width: '100%',
+//     maxWidth: '36ch',
+//     backgroundColor: theme.palette.background.paper,
+//   },
+//   inline: {
+//     display: 'inline',
+//   },
+// }));
 
 const DisplayAllPosts = () => {
     const [title, setTitle] = useState("");
@@ -110,18 +123,22 @@ const DisplayAllPosts = () => {
             <h3>There is nothing to see here!</h3>
           </div>
         ) : (
-          allPost.map(eachPost => {
-            return (
-              <Post
-                id={eachPost.id}
-                key={eachPost.id}
-                title={eachPost.title}
-                content={eachPost.content}
-                editPost={editPost}
-                deletePost={deletePost}
-                />
-            );
-          })
+            <List>
+              {allPost.map(eachPost => {
+                return (
+                  <Post
+                    id={eachPost.id}
+                    key={eachPost.id}
+                    title={eachPost.title}
+                    content={eachPost.content}
+                    editPost={editPost}
+                    deletePost={deletePost}
+                  />);
+              })
+              }
+            </List>
+          
+            
         )}
 
         <br/>

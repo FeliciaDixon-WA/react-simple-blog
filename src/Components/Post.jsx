@@ -4,6 +4,8 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { getTwentyWords } from '../helpers/getWords';
+
 
 
 const Post = ({ title, content, editPost, id, deletePost }) => {
@@ -11,8 +13,11 @@ const Post = ({ title, content, editPost, id, deletePost }) => {
     <ListItem>
     <ListItemText
         primary={title}
-        secondary={content}
+        secondary={getTwentyWords(content)}
+                
     />
+
+            
           
         <IconButton edge="end" aria-label="edit" onClick = { () => editPost(id)} >
             <EditIcon color="primary" variant="contained" />

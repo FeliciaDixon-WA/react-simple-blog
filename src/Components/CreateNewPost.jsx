@@ -1,10 +1,17 @@
-import { Button } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import React from "react";
-import CancelIcon from '@material-ui/icons/Cancel';
-import IconButton from '@material-ui/core/IconButton';
-import { ListItem, ListItemText } from '@material-ui/core';
+import { ListItem } from '@material-ui/core';
+
+const useStyle = makeStyles((theme) => {
+  return {
+    button: {
+      margin: 8,
+    }
+  }
+})
 
 const CreateNewPost = props => {
+  const classes = useStyle();
   return (
     <ListItem>
       <form onSubmit={props.savePost}>
@@ -29,12 +36,11 @@ const CreateNewPost = props => {
         ></textarea>
         <br />
         <br />
-        
-        <Button color="primary" variant="contained" onClick={props.savePost}>Save Post</Button>
+        <Button className= 
+        {classes.button} color="primary" variant="contained" onClick={props.onCancel}>Cancel</Button>
 
-        <IconButton edge="end" aria-label="cancel" >
-            <CancelIcon color="primary" variant="contained" />
-        </IconButton>
+        <Button className= 
+        {classes.button} color="primary" variant="contained" onClick={props.savePost}>Save Post</Button>
 
       </form>
     </ListItem>

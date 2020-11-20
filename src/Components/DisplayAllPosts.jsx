@@ -4,19 +4,7 @@ import CreateNewPost from './CreateNewPost';
 import Post from './Post';
 import ModifyPost from './ModifyPost';
 import { Button } from '@material-ui/core';
-// import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: '100%',
-//     maxWidth: '36ch',
-//     backgroundColor: theme.palette.background.paper,
-//   },
-//   inline: {
-//     display: 'inline',
-//   },
-// }));
 
 const DisplayAllPosts = () => {
     const [title, setTitle] = useState("");
@@ -97,6 +85,7 @@ const DisplayAllPosts = () => {
             getTitle={getTitle}
             getContent={getContent}
             savePost={savePost}
+            onCancel={toggleCreateNewPost}
           />
         </React.Fragment>
       );

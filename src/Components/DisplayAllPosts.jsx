@@ -1,139 +1,138 @@
-import React, {useState, useRef } from 'react';
-import useDebug from '../hooks/useDebug';
-import CreateNewPost from './CreateNewPost';
-import Post from './Post';
-import ModifyPost from './ModifyPost';
-import { Button } from '@material-ui/core';
-import List from '@material-ui/core/List';
+import React, { useState, useRef } from "react";
+import useDebug from "../hooks/useDebug";
+import CreateNewPost from "./CreateNewPost";
+import Post from "./Post";
+import ModifyPost from "./ModifyPost";
+import { Button } from "@material-ui/core";
+import List from "@material-ui/core/List";
 
 const DisplayAllPosts = () => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [allPost, setAllPost] = useState([]);
-    const [isCreateNewPost, setIsCreateNewPost] = useState(false);
-    const [isModifyPost, setIsModifyPost] = useState(false);
-    const [editPostId, setEditPostId] = useState("");
-    
-    const getTitle = useRef();
-    const getContent = useRef();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [allPost, setAllPost] = useState([]);
+  const [isCreateNewPost, setIsCreateNewPost] = useState(false);
+  const [isModifyPost, setIsModifyPost] = useState(false);
+  const [editPostId, setEditPostId] = useState("");
 
-   useDebug(title);
-   useDebug(content);
-   useDebug(allPost);
-   useDebug(editPostId);
+  const getTitle = useRef();
+  const getContent = useRef();
 
-    const savePostTitleToState = event => {
-         setTitle(event.target.value);
-    };
+  useDebug(title);
+  useDebug(content);
+  useDebug(allPost);
+  useDebug(editPostId);
 
-    const savePostContentToState = event => {
-         setContent(event.target.value);
-    };
+  const savePostTitleToState = (event) => {
+    setTitle(event.target.value);
+  };
 
-    const toggleCreateNewPost = () => {
-        setIsCreateNewPost(!isCreateNewPost)
-    }
+  const savePostContentToState = (event) => {
+    setContent(event.target.value);
+  };
 
-    const toggleModifyPostComponent = () => {
-      setIsModifyPost(!isModifyPost)
-    }
+  const toggleCreateNewPost = () => {
+    setIsCreateNewPost(!isCreateNewPost);
+  };
 
-    const editPost = id => {
-      setEditPostId(id);
-      toggleModifyPostComponent();
-    };
+  const toggleModifyPostComponent = () => {
+    setIsModifyPost(!isModifyPost);
+  };
 
-    const deletePost = id => {
-      const modifiedPost = allPost.filter(eachPost => {
-        return eachPost.id!== id;
-      });
-      setAllPost(modifiedPost);
-    };
+  const editPost = (id) => {
+    setEditPostId(id);
+    toggleModifyPostComponent();
+  };
 
-    const updatePost = (event) => {
-      event.preventDefault();
-      const updatePost = allPost.map(eachPost => {
-        if(eachPost.id === editPostId) {
-          return {
-            ...eachPost,
-            title: title || eachPost.title,
-            content: content || eachPost.content
-          };
-        }
-        return eachPost;
-      });
-      setAllPost(updatePost);
-      toggleModifyPostComponent();
-    }
+  const deletePost = (id) => {
+    const modifiedPost = allPost.filter((eachPost) => {
+      return eachPost.id !== id;
+    });
+    setAllPost(modifiedPost);
+  };
 
-      const savePost = event => {
-        event.preventDefault();
-        const id = Date.now();
-        setAllPost([...allPost, { title, content, id}]); 
-        setTitle("");
-        setContent("");
-        getTitle.current.value = "";
-        getContent.current.value = "";
-        toggleCreateNewPost()
-      };
-    if(isCreateNewPost){
-      return (
-        <React.Fragment>
-          <CreateNewPost
-            savePostTitleToState={savePostTitleToState}
-            savePostContentToState={savePostContentToState}
-            getTitle={getTitle}
-            getContent={getContent}
-            savePost={savePost}
-            onCancel={toggleCreateNewPost}
-          />
-        </React.Fragment>
-      );
-    }
-    else if (isModifyPost){
-      const post = allPost.find(post => {
-        return post.id === editPostId;
-      });
-      return (
-        <ModifyPost 
-          title={post.title}
-          content={post.content}
-          updatePost={updatePost}
+  const updatePost = (event) => {
+    event.preventDefault();
+    const updatePost = allPost.map((eachPost) => {
+      if (eachPost.id === editPostId) {
+        return {
+          ...eachPost,
+          title: title || eachPost.title,
+          content: content || eachPost.content,
+        };
+      }
+      return eachPost;
+    });
+    setAllPost(updatePost);
+    toggleModifyPostComponent();
+  };
+
+  const savePost = (event) => {
+    event.preventDefault();
+    const id = Date.now();
+    setAllPost([...allPost, { title, content, id }]);
+    setTitle("");
+    setContent("");
+    getTitle.current.value = "";
+    getContent.current.value = "";
+    toggleCreateNewPost();
+  };
+  if (isCreateNewPost) {
+    return (
+      <React.Fragment>
+        <CreateNewPost
           savePostTitleToState={savePostTitleToState}
           savePostContentToState={savePostContentToState}
+          getTitle={getTitle}
+          getContent={getContent}
+          savePost={savePost}
+          onCancel={toggleCreateNewPost}
         />
-      );
-    }
+      </React.Fragment>
+    );
+  } else if (isModifyPost) {
+    const post = allPost.find((post) => {
+      return post.id === editPostId;
+    });
     return (
+      <ModifyPost
+        title={post.title}
+        content={post.content}
+        updatePost={updatePost}
+        savePostTitleToState={savePostTitleToState}
+        savePostContentToState={savePostContentToState}
+      />
+    );
+  }
+  return (
     <React.Fragment>
-        <h2>All Posts</h2>
-        {!allPost.length ? (
-          <div> 
-            <h3>There is nothing to see here!</h3>
-          </div>
-        ) : (
-            <List>
-              {allPost.map(eachPost => {
-                return (
-                  <Post
-                    id={eachPost.id}
-                    key={eachPost.id}
-                    title={eachPost.title}
-                    content={eachPost.content}
-                    editPost={editPost}
-                    deletePost={deletePost}
-                  />);
-              })
-              }
-            </List>
-          
-            
-        )}
+      <h1>All Posts</h1>
+      {!allPost.length ? (
+        <div>
+          <h3>There is nothing to see here!</h3>
+        </div>
+      ) : (
+        <List>
+          {allPost.map((eachPost) => {
+            return (
+              <Post
+                id={eachPost.id}
+                key={eachPost.id}
+                title={eachPost.title}
+                content={eachPost.content}
+                editPost={editPost}
+                deletePost={deletePost}
+              />
+            );
+          })}
+        </List>
+      )}
 
-        <br/>
-        <br/>
-        <Button color="primary" variant="contained" onClick={toggleCreateNewPost}>Create New</Button>
+      <br />
+      <br />
+      <Button color="primary" variant="contained" onClick={toggleCreateNewPost}>
+        Create New
+      </Button>
     </React.Fragment>
-  )
+  );
 };
-export default DisplayAllPosts
+export default DisplayAllPosts;

@@ -9,6 +9,5 @@ const getWords = (words) => (str) => {
 }
 
 export const getTwentyWords = getWords(20);
-
 export default getWords;
 

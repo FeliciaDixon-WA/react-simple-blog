@@ -1,20 +1,21 @@
 import { Button, makeStyles } from "@material-ui/core";
 import React from "react";
-import { ListItem } from '@material-ui/core';
+import { ListItem } from "@material-ui/core";
 
 const useStyle = makeStyles((theme) => {
   return {
     button: {
       margin: 8,
-    }
-  }
-})
+    },
+    backgroundColor: "#ccc",
+  };
+});
 
-const CreateNewPost = props => {
+const CreateNewPost = (props) => {
   const classes = useStyle();
   return (
     <ListItem>
-      <form onSubmit={props.savePost}>
+      <form className={classes.backgroundColor} onSubmit={props.savePost}>
         <h1>Create New Post</h1>
         <input
           type="text"
@@ -36,12 +37,23 @@ const CreateNewPost = props => {
         ></textarea>
         <br />
         <br />
-        <Button className= 
-        {classes.button} color="primary" variant="contained" onClick={props.onCancel}>Cancel</Button>
+        <Button
+          className={classes.button}
+          color="primary"
+          variant="contained"
+          onClick={props.onCancel}
+        >
+          Cancel
+        </Button>
 
-        <Button className= 
-        {classes.button} color="primary" variant="contained" onClick={props.savePost}>Save Post</Button>
-
+        <Button
+          className={classes.button}
+          color="primary"
+          variant="contained"
+          onClick={props.savePost}
+        >
+          Save Post
+        </Button>
       </form>
     </ListItem>
   );

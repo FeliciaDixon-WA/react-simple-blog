@@ -1,34 +1,32 @@
-import { ListItem, ListItemText } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { getTwentyWords } from '../helpers/getWords';
-
-
+import { ListItem, ListItemText, Divider } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
+import React from "react";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import { getTwentyWords } from "../helpers/getWords";
 
 const Post = ({ title, content, editPost, id, deletePost }) => {
-    return (
-    <ListItem>
-    <ListItemText
-        primary={title}
-        secondary={getTwentyWords(content)}
-                
-    />
+  return (
+    <React.Fragment>
+      <Divider variant="middle" component="li" />
+      <ListItem>
+        <ListItemText primary={title} secondary={getTwentyWords(content)} />
+        <IconButton edge="end" aria-label="edit" onClick={() => editPost(id)}>
+          <EditIcon color="primary" variant="contained" />
+        </IconButton>
 
-            
-          
-        <IconButton edge="end" aria-label="edit" onClick = { () => editPost(id)} >
-            <EditIcon color="primary" variant="contained" />
-            </IconButton>
-            
         <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick ={ () => deletePost(id)} >
-                <DeleteIcon color="primary" variant="contained" />
-            </IconButton>
+          <IconButton
+            edge="end"
+            aria-label="delete"
+            onClick={() => deletePost(id)}
+          >
+            <DeleteIcon color="primary" variant="contained" />
+          </IconButton>
         </ListItemSecondaryAction>
-    </ListItem> 
-    );
+      </ListItem>
+    </React.Fragment>
+  );
 };
-export default Post
+export default Post;

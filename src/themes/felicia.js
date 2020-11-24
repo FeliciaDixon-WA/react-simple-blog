@@ -4,7 +4,7 @@ const theme = {
     palette: {
         primary: {
             main: "#4db6ac",
-        },
+        }
     }
 }      
 

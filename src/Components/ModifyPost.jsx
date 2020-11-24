@@ -4,13 +4,13 @@ import React from "react";
 const useStyle = makeStyles((theme) => {
   return {
     root: {
-      backgroundColor: "gray",
-      padding: theme.spacing(2)
-    }
-  }
-})
+      backgroundColor: "#ccc",
+      padding: theme.spacing(2),
+    },
+  };
+});
 
-const ModifyPost = props => {
+const ModifyPost = (props) => {
   const classes = useStyle();
   return (
     <React.Fragment>
@@ -33,7 +33,9 @@ const ModifyPost = props => {
         ></textarea>
         <br />
         <br />
-        <Button color="primary" variant="contained" onClick ={props.updatePost}>Update Post</Button>
+        <Button color="primary" variant="contained" onClick={props.updatePost}>
+          Update Post
+        </Button>
       </form>
     </React.Fragment>
   );
